@@ -1,0 +1,107 @@
+basePath: /api
+definitions:
+  request.CreateRequest:
+    properties:
+      name:
+        maxLength: 200
+        minLength: 1
+        type: string
+    required:
+    - name
+    type: object
+  response.HttpResponse:
+    properties:
+      code:
+        type: integer
+      data: {}
+      status:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: API using Gin framework
+  title: API
+paths:
+  /students:
+    get:
+      description: Return list of students.
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: obejct
+      summary: Get All student.
+    post:
+      description: Save a student data in Db.
+      parameters:
+      - description: create a student
+        in: body
+        name: student
+        required: true
+        schema:
+          $ref: '#/definitions/request.CreateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.HttpResponse'
+      summary: Create a student
+  /students/{studentId}:
+    delete:
+      description: Remove student data by id.
+      parameters:
+      - description: delete a student by id
+        in: path
+        name: studentId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.HttpResponse'
+      summary: Delete a student
+    get:
+      description: Return the tahs whoes studentId valu mathes id.
+      parameters:
+      - description: update student by id
+        in: path
+        name: studentId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.HttpResponse'
+      summary: Get Single student by id.
+    patch:
+      description: Update student data.
+      parameters:
+      - description: update student by id
+        in: path
+        name: studentId
+        required: true
+        type: string
+      - description: Update a student
+        in: body
+        name: student
+        required: true
+        schema:
+          $ref: '#/definitions/request.CreateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.HttpResponse'
+      summary: Update a student
+swagger: "2.0"
